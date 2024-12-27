@@ -31,3 +31,16 @@ Why Choose Playwright over any other tool?
 - Flexibility provided when project configurations.
 - Locators auto-waiting and retry-ability.
 - Therefore, using Playwright for regression testing can give you confidence in future software releases - we want to ensure we have high-quality releases and Playwright allows testers to do this.
+
+# Set and build up the project development environment
+
+1. Installing Node
+
+- Can download from the Node Prebuilt installer --> https://nodejs.org/en/download/prebuilt-installer
+- After installing Node, enter `$ node --version` command on a CLI to check the version of the recently downloaded Node
+
+2. Installing Playwright through the terminal commands
+
+- Install Playwright with Node Package Manager (npm) using the command `$ npm init playwright@latest` and press "Enter" key
+- Then, press Enter everytime for each question with the following values: TypeScript for Q1, tests for Q2, False for Q3, true for Q4 - can take 3 or 4 minutes to install all the browsers used by Playwright.
+- Run the test by `$ npx playwright test` and press Enter - this will kick off all the tests
