@@ -7,7 +7,7 @@ setup("Create customer 01 auth", async ({ page, context }) => {
     // Rather than typing out the email in the test, create a variable
     const email = "customer@practicesoftwaretesting.com";
     const password = "welcome01";
-    const customer01AuthFile = ".auth/customer01.json";
+    const customer01AuthFile = "ToolShop-WebApp_PlaywrightTests/.auth/customer01.json";
 
     // Log in to the site
     await page.goto("https://practicesoftwaretesting.com/auth/login"); // go directly to the login page rather than home page and then login
