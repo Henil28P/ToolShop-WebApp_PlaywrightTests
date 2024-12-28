@@ -58,7 +58,13 @@ test.describe("Home page customer 01 auth", () => {
 
     test.beforeEach(async ({ page }) => {
         await page.goto("https://practicesoftwaretesting.com/");
-    })
+    });
+
+    test("visual test authorized", async ({ page }) => {
+        await expect(page).toHaveScreenshot("home-page-customer01.png");
+        // To ensure this test doesn't fail when running initially, run the command: # npx playwright test tests/home.spec.ts --update-snapshots
+        // It will regenerate snapshots for any of these assertions by default and it will create a new one but won't fail on first run
+    });
 
     test("check customer 01 is signed in", async ({ page }) => {
         await expect(page.getByTestId("nav-sign-in")).not.toBeVisible(); // to verify the "Sign in" hypertext is not present anymore as the customer 01 is already logged in now
