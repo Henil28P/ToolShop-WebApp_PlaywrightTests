@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test" // to interact with test and exp
 // Refactor and structure the test code using "describe" block used to group tests together
 // Before All, Before Each, After Each blocks - these are things that can be run within the describe block outside of a test context
 // Then, split up test into different checks
-test.describe("Home page", () => {
+test.describe("Home page with no auth", () => {
     test.beforeEach(async ({ page }) => {
         await page.goto("https://practicesoftwaretesting.com/"); // 'goto' command allows testers to go and browse the site
     });
@@ -44,3 +44,21 @@ test.describe("Home page", () => {
         await expect(page.getByAltText("Thor Hammer")).toBeVisible(); // The AltText of the image can be our locator to test appearance of Thor Hammer tool picture in the product grid
     });
 });
+
+// So far we are able to save the browser context, but now how do we use that in our test:
+test.describe("Home page customer 01 auth", () => {
+
+    test.use({ storageState: "ToolShop-WebApp_PlaywrightTests/.auth/customer01.json" });
+
+    test.beforeEach(async ({ page }) => {
+        await page.goto("https://practicesoftwaretesting.com/");
+    })
+
+    test("check customer 01 is signed in", async ({ page }) => {
+        await expect(page.getByTestId("nav-sign-in")).not.toBeVisible(); // to verify the "Sign in" hypertext is not present anymore as the customer 01 is already logged in now
+        await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe"); // to verify the customer name is logged in and their name appears in place of "Sign in" hypertext
+    });
+});
+
+// To run all the above tests together in the same file, use "$ npx playwright test"
+// From here, we have a pattern to follow and we could create an admin setup step, a customer O2 setup step or any other username and password combination we wish to create
