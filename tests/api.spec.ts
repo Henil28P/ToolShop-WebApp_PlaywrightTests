@@ -31,3 +31,27 @@ test("GET /products", async ({ request }) => {
     expect(body.data.length).toBe(9);
     expect(body.total).toBe(50);
 });
+
+// Test for POSTing the User Login
+// Before log in, we should clear the history on the web page and also "Preserve Log" to preserve any of your API requests
+// Once logged in as customer@practicesoftwaretesting.com and password as "welcome01", go to Network tab in Dev tools and click on the "login" under Name column and note the details on the right including API request url, request method (POST), etc.
+test("POST /users/login", async ({ request }) => {
+    // Let's make a POST request to the URL in the Headers section of the login page in the Network tab
+    const apiUrl = "https://api.practicesoftwaretesting.com";
+    // Set a variable for the response
+    const response = await request.post(apiUrl + "/users/login", {
+        // we want to POST a body into this request, check the "Payload" tab which includes the request body containing the email and password values
+        data: { // data that we are POSTing to the server
+            email: "customer@practicesoftwaretesting.com",
+            password: "welcome01",
+        }
+    });
+
+    // Add an assertion - if we're not asserting on the response, this API request could fail and we'd never know
+    expect(response.status()).toBe(200); // status code of 200
+    const body = await response.json();
+    // console.log(body); // to put a breakpoint and run the test to see what's coming back in the response body
+
+    // Test to make sure the access_token actually exists on the response
+    expect(body.access_token).toBeTruthy(); // basically saying that this body should have an access_token - if that's true, then pass, if not, then fail
+});
