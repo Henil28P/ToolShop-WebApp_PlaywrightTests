@@ -9,6 +9,12 @@ test.describe("Home page with no auth", () => {
         await page.goto("https://practicesoftwaretesting.com/"); // 'goto' command allows testers to go and browse the site
     });
 
+    // Visual test for no auth
+    test("visual test", async ({ page }) => {
+        await expect(page).toHaveScreenshot("home-page-no-auth.png");
+        // Execute only this test starting on line 13 by "$ npx playwright test tests/home.spec.ts:13"
+    });
+
     // Ensure the sign in link is present
     test("Check sign in", async ({ page }) => {
 
