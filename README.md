@@ -101,3 +101,42 @@ There are some useful commands that can come in handy as the Playwright project 
 
 - Code Generator (codegen) - helps testers give a headstart by recording locators that theey interact with to built out their first test from scratch against the website that they are testing against (eg. ToolShop E-commerce web).
 - To run the Codegen tool, run the command: `$ npx playwright codegen` --> 2 windows will pop up (1. Playwright inspector which is where all the code will be generated to and 2. Chrome browser where we can browse the web page).
+
+# Overview of locator strategies in Playwright
+
+- Much like other test automation tools, Playwright is able to interact with the DOM (Document Object Model). In many cases, the DOM will look different than the original HTML as the DOM includes anu JavaScript modifications.
+- The DOM is what is viewable when you use Chrome Dev tools and look in the "Elements" tab.
+- Playwright interacts with a DOM using 2 types of locators:
+
+1. Recommended built-in locators
+2. Legacy locators which include things like CSS selectors, and XPATH.
+
+- Different types of locators and some examples
+
+1. `page.getByRole()` - eg. `await page.getByRole('button',{ name: 'Sign in' }).click();` --> getting the role button with the name 'Sign in' and clicking the button as the action. Note that if you're interacting with or asserting against an element, you will need the `await` syntax at the beginning of the locator.
+2. `page.getByText()` - eg. `await expect(page.getByText('Alex Crisp')).toBeVisible();` --> The element within the DOM we want to interact with has text 'Alex Crisp'. This specific line of test code is expecting this element to be visible. If for some reason an element that was matching this locator didn't exist or was in hidden state, the Playwright test would fail.
+3. `page.getByLabel()` - eg. `await page.getByLabel('username').fill('email@test.com')` --> this is typically useful for inputs within applications as labels are used for making websites more accessible. The .fill() method will automatically add the email string into the input box (it uses JS to do this).
+4. `page.getByPlaceholder()` -
+5. `page.getByAltText()`
+6. `page.getByTitle()`
+7. `page.getByTestId()` - eg. `await page.getByTestId('nav-sign-in').click()` which will click the "Sign in" button - However, before we cover all the previous, we will need to add `testIdAttribute: 'data-test'` option in the our playwright.config.ts in the "use" section of the "defineConfig" - this is because the ToolShop website being tested uses this as the testID attribute which overwrites the Playwright default.
+
+- The above is a list of built-in locators recommended to use first by the Playwright dev team.
+
+8. `page.locator()` - eg. `await page.locator('[data-test="nav-sign-in"]').click()` - this is the legacy locator pattern/syntax following same thing as previous `page.getByTestId()` and this sets the locator based on the data test ID custom attribute.
+
+- CSS locators --> `await page.locator('css=button').click();` - The CSS locators example allows you to pass any CSS selector after CSS equals. If there is more than 1 button within the DOM, this test would likely fail with an error message letting us know that there were multiple buttons that were matched.
+- CSS and matching text --> `await page.locator('article:hastext("Playwright")').click();` - to combine locators, you can use any CSS selector.
+
+- Legacy locators can also have 2 locators when splitting them with a comma (,):
+
+1. Example: Clicks a <button> that has either a "Log in" or "Sign in" text --> `await page.locator('button:has-text("Log in"), button:has-text("Sign in")').click();` - could be useful when writing tests for A/B testing scenarios.
+
+- Using XPath within the legacy locators: `await page.locator('xpath=//button').click();` - usually use it as the last alternative as it's more difficult to maintain and less readable.
+
+Therefore:
+
+1. Use recommended locators - it's a good indication if your website is testable or not.
+2. Chain and filter locators - to get to specific elements within the DOM that you want to interact or assert against.
+3. Use legacy locators if needed
+4. Remember to use `await` when interacting with or asserting against elements.
