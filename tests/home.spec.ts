@@ -18,4 +18,10 @@ test("Home page", async ({ page }) => {
     await expect(productGrid.getByRole("link")).toHaveCount(9); // Withint he product grid, go get all the links (<a> tags) and we expect that that should have a count of 9
     // We can also use a non-locator assertion for the above
     expect(await productGrid.getByRole("link").count()).toBe(9);
+
+    // Search for "Thor Hammer" (action) and check the result in the grid (assertion)
+    await page.getByTestId("search-query").fill("Thor Hammer"); // Fill the search field with "Thor Hammer"
+    await page.getByTestId("search-submit").click(); // Click the search button
+    await expect(productGrid.getByRole("link")).toHaveCount(1); // Ensures that only 1 product result is shown in the productGrid which is Thor Hammer
+    await expect(page.getByAltText("Thor Hammer")).toBeVisible(); // The AltText of the image can be our locator to test appearance of Thor Hammer tool picture in the product grid
 });
