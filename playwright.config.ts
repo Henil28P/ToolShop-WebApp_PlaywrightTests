@@ -38,6 +38,7 @@ export default defineConfig({
     // This section focuses on details of the browser, browser configuration settings, and how the browser is going to interact when running test
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://practicesoftwaretesting.com', // URL of this project's test ToolShop website
+    testIdAttribute: "data-test",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on', // the trace file will include things like network request, console error logs and all other elements on the screen along with the timeline view of how that happened.
