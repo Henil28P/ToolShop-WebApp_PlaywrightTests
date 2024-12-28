@@ -190,3 +190,15 @@ Therefore:
 - One other thing you want to do is ensure the browser is in a consistent state before you take screenshot during visual testing - 1 way to help ensure this is by adding in `await page.waitForLoadState` and best option would be <b>network idle</b> as it's a good thing to wait for - it waits for all of the network requests to complete before taking the screenshot, which typically by that time all thee elements on the page will load.
 
 - One caveat to note is that if you are running visual tests in CI servers and they have different OS than the tests you are building the test on or generating the snapshots on, you will have to generate CI-specific snapshots (can be done that through Docker containers - available through the Playwright documentation: https://playwright.dev/docs/test-snapshots)
+
+# API testing in Playwright
+
+- Most modern websites are built with an API-first approach where the business logic lives behind an API.
+- The major feature that Playwright supports is the ability to interact with network traffic during a UI test, but it also provides tools to test APIs directly.
+- You can use Playwright test framework for both UI and API test, all within the same repository.
+- This project focuses on 2 API test examples:
+
+1. GET request
+2. POST request
+
+- For more information, the Playwright docs provide even greater detail into the possibilities of what you can do when testing API requests with Playwright: https://playwright.dev/docs/api/class-apirequestcontext
