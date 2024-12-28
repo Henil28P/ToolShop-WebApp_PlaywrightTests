@@ -11,6 +11,7 @@ test.describe("Home page with no auth", () => {
 
     // Visual test for no auth
     test("visual test", async ({ page }) => {
+        await page.waitForLoadState("networkidle"); // to ensure the browser is in a consistent state before you take screenshot during visual testing - networkidle waits for all of the network requests to complete before taking the screenshot
         await expect(page).toHaveScreenshot("home-page-no-auth.png", {
             mask: [page.getByTitle("Practice Software Testing - Toolshop")], // so we care about masking the ToolShop's title value of "Practice Software Testing - ToolShop"
         });
@@ -63,6 +64,7 @@ test.describe("Home page customer 01 auth", () => {
     });
 
     test("visual test authorized", async ({ page }) => {
+        await page.waitForLoadState("networkidle"); // to ensure the browser is in a consistent state before you take screenshot during visual testing - networkidle waits for all of the network requests to complete before taking the screenshot
         await expect(page).toHaveScreenshot("home-page-customer01.png", {
             mask: [page.getByTitle("Practice Software Testing - Toolshop")], // so we care about masking the ToolShop's title value of "Practice Software Testing - ToolShop"
         });
