@@ -57,3 +57,11 @@ A full list of Playwright test commands can be found at https://playwright.dev/d
 Another thing nice about the `--project` option is that it's an argument and can be matched to regular expressions.
 
 - For example: `$ npx playwright test --project "\*omium"`
+
+There are some useful commands that can come in handy as the Playwright project grows:
+
+- For example: you can narrow down your runs further by running all the tests within a specific file (eg. `example.spec.ts`) and run only the tests in this file:
+  --> `$ npx playwright test tests/example.spec.ts`
+- You can also run a specific test from that file by specifying the line number of the test start in the file. --> `$ npx playwright test tests/example.spec.ts:10` where 10 is to indicate only run the test starting on 10th line in the test file.
+- The `grep` option allows you to not group a group of tests in the same folder but you wish to run them all together.
+  Firstly, categorise those tests using the Playwright's tagging functionality.
