@@ -2,6 +2,19 @@
 
 A Playwright Automation Software Testing project for ToolShop Web Application to test its functionalities of features and user interaction components on the web
 
+# Website under test:
+
+- It's always a good idea to take some time and explore the website we plan to automate and understanding the site under test will make it easier as we start automating certain actions in the site.
+- Link: https://practicesoftwaretesting.com - ToolShop E-commerce website for tools
+- Useful site for practicing software testing
+
+Features:
+
+- Filter tools by brand, wrenches
+- Sign in/Log in page (sample login details are in https://github.com/testsmith-io/practice-software-testing in README file and also has different versions of website such as bug version, clean version, etc.)
+- Add tool to cart option
+- Increase/Decrease quantity, enter billing details (address, postal code), payment method, click "Confirm"
+
 # Playwright
 
 - Playwright is an open-source tool built by Microsoft that enables reliable end-to-end UI and API automation testing for modern web apps (such as this project of ToolShop).
