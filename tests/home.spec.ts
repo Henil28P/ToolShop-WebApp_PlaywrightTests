@@ -11,7 +11,9 @@ test.describe("Home page with no auth", () => {
 
     // Visual test for no auth
     test("visual test", async ({ page }) => {
-        await expect(page).toHaveScreenshot("home-page-no-auth.png");
+        await expect(page).toHaveScreenshot("home-page-no-auth.png", {
+            mask: [page.getByTitle("Practice Software Testing - Toolshop")], // so we care about masking the ToolShop's title value of "Practice Software Testing - ToolShop"
+        });
         // Execute only this test starting on line 13 by "$ npx playwright test tests/home.spec.ts:13"
     });
 
@@ -61,7 +63,9 @@ test.describe("Home page customer 01 auth", () => {
     });
 
     test("visual test authorized", async ({ page }) => {
-        await expect(page).toHaveScreenshot("home-page-customer01.png");
+        await expect(page).toHaveScreenshot("home-page-customer01.png", {
+            mask: [page.getByTitle("Practice Software Testing - Toolshop")], // so we care about masking the ToolShop's title value of "Practice Software Testing - ToolShop"
+        });
         // To ensure this test doesn't fail when running initially, run the command: # npx playwright test tests/home.spec.ts --update-snapshots
         // It will regenerate snapshots for any of these assertions by default and it will create a new one but won't fail on first run
     });
