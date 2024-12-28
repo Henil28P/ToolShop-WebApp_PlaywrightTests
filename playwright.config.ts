@@ -21,7 +21,7 @@ import { defineConfig, devices } from '@playwright/test';
 // Main method:
 export default defineConfig({
   timeout: 30_000, // 30 seconds or 30,000 milliseconds (if 30 seconds goes by and that test is not complete, the test will fail)
-  globalTimeout: 10 * 60 * 1000 // 10 minutes (if all of your tests take longer than 10 minutes to run, your Playwright test will fail) - so if your test suite grows in future, you need to change this globalTimeout value
+  globalTimeout: 10 * 60 * 1000, // 10 minutes (if all of your tests take longer than 10 minutes to run, your Playwright test will fail) - so if your test suite grows in future, you need to change this globalTimeout value
   testDir: './tests',
   /* Run tests in multiple files in parallel */
   fullyParallel: true,
@@ -65,19 +65,19 @@ export default defineConfig({
       name: 'chromium',
       dependencies: ["setup"], // value of array and string as setup, what this will do is that when each of the projects with this key of "dependencies" is run successfully before those projects run
       use: { ...devices['Desktop Chrome'], permissions: ["clipboard-read"] }, // will allow us to programmatically access the clipboard within Chrome
-    },
+    }
 
-    {
-      name: 'firefox',
-      dependencies: ["setup"],
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   dependencies: ["setup"],
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      dependencies: ["setup"],
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   dependencies: ["setup"],
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. (For Cross-browser testing) */
     // {
