@@ -202,3 +202,24 @@ Therefore:
 2. POST request
 
 - For more information, the Playwright docs provide even greater detail into the possibilities of what you can do when testing API requests with Playwright: https://playwright.dev/docs/api/class-apirequestcontext
+
+# Automating the right things with Playwright
+
+- It's easy to get carried away and want to automate all the things due to Playwright offerring a lot of the core functionality. However, it's all about automating the right things only - utilise Playwright for its strengths and utilise other tooling for their strengths.
+- Different types of test automation that can be done:
+
+1. Unit/component tests
+2. API regression tests (Playwright)
+3. UI regression tests (Playwright)
+4. Smoke tests (Playwright)
+5. Performance tests
+6. Security tests
+
+Example of a Login Flow model and what happens from a technical perspective:
+<img src="">
+
+- This is an example of what happens in a web app when you try and log in.
+- From the highest level, you're interacting with the UI entering the username and password.
+- JavaScript on the page fires when you press "Submit" - this will send an API request to the API server, potentially with a CSFR token - this may talk to a security service to ensure that you're able to connect to a database, and validate the CSFR token, then a call is made to the database to validate the username and password that they're valid.
+  At that point, an access token could be granted giving you access to the site that would get returned in an API response, in a response header or in a body. Typically, the JavaScript on the UI will get this authenticated response and load the authenticated homepage along with any additional information that would be retrieved from the API.
+- Where we can focus with Playwright are the interfaces that are exposed to test with, specifically the UI (or the DOM to the database) or through the API all the way down to the database.
