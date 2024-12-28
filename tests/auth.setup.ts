@@ -11,4 +11,14 @@ setup("Create customer 01 auth", async ({ page, context }) => {
 
     // Log in to the site
     await page.goto("https://practicesoftwaretesting.com/auth/login"); // go directly to the login page rather than home page and then login
-})
+
+    // Following steps should take you to an authentication place
+    // 1. Fill the email
+    await page.getByTestId("email").fill(email);
+
+    // 2. Fill the password field
+    await page.getByTestId("password").fill(password);
+
+    // 3. Click the submit button
+    await page.getByTestId("login-submit").click();
+});
