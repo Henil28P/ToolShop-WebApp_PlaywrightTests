@@ -175,3 +175,18 @@ Therefore:
 
 - Challenge: every test creates a new browser context. How can we quickly and easily get out test into a logged-in state for the tests that require login? Going through the login steps before each step will add a lot of time to our test execution time and it'd be a lot of repeated codde. --> We can instead use some tools to store an authentication state, all within Playwright.
   When setting the Projects section in the `playwright.config.ts` file, with the setup project, we can use this to handle authentication within the system once and saving the state to be used within other tests.
+
+# Visual testing in Playwright
+
+- Another popular way to test web applications.
+- The concept here is while the test is in a certain state, you take a screenshot of the page or certain elements on the page and save them as a snapshot - this snapshot is a part of the repository and is used as a baseline image to compare future screenshots against.
+- Useful strategy to use depending on the app and context you are testing in.
+- For this project, add 2 different visual tests within each "describe" block of `home.spec.ts` test file - the syntax is to add `.toHaveScreenshot` with a name assetion to a test file (1 for auth and 1 for no-auth).
+
+- At times, you may run into an issue where certain fields maybe an ad block is actually not rendering and you may need a way to hide that. 1 way to hide that:
+
+1. Playwright documentation of `toHaveScreenshot(name)`, check out the <b>mask</b> argument where we can specify specific locators that can be masked by default with a pink box but you can also change the colours if you want.
+
+- One other thing you want to do is ensure the browser is in a consistent state before you take screenshot during visual testing - 1 way to help ensure this is by adding in `await page.waitForLoadState` and best option would be <b>network idle</b> as it's a good thing to wait for - it waits for all of the network requests to complete before taking the screenshot, which typically by that time all thee elements on the page will load.
+
+- One caveat to note is that if you are running visual tests in CI servers and they have different OS than the tests you are building the test on or generating the snapshots on, you will have to generate CI-specific snapshots (can be done that through Docker containers - available through the Playwright documentation: https://playwright.dev/docs/test-snapshots)
