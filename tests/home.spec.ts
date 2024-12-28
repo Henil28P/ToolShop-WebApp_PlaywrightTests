@@ -37,6 +37,7 @@ test.describe("Home page", () => {
 
     // Search for "Thor Hammer" (action) and check the result in the grid (assertion)
     test("Searching for Thor Hammer", async ({ page }) => {
+        const productGrid = page.locator(".col-md-9"); // The const syntax will set productGrid as a variable which can never change
         await page.getByTestId("search-query").fill("Thor Hammer"); // Fill the search field with "Thor Hammer"
         await page.getByTestId("search-submit").click(); // Click the search button
         await expect(productGrid.getByRole("link")).toHaveCount(1); // Ensures that only 1 product result is shown in the productGrid which is Thor Hammer
