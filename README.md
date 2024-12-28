@@ -44,3 +44,16 @@ Why Choose Playwright over any other tool?
 - Install Playwright with Node Package Manager (npm) using the command `$ npm init playwright@latest` and press "Enter" key
 - Then, press Enter everytime for each question with the following values: TypeScript for Q1, tests for Q2, False for Q3, true for Q4 - can take 3 or 4 minutes to install all the browsers used by Playwright.
 - Run the test by `$ npx playwright test` and press Enter - this will kick off all the tests
+
+One of the main ways that Playwright tests are run is through the CLI.
+A full list of Playwright test commands can be found at https://playwright.dev/docs/test-cli
+
+- Note: Any options passed into the Playwright command when running from the CLI will override any configuration settings that are set in the Playwright config (playwright.config.ts).
+
+- `$ npx playwright test --headed` --> run all the tests in headed mode meaning the browsers will pop up and tester will be able to see the actions (this will override the setting defined in the playwright.config.ts file which is "headless: true" and this setting will be ignored)
+- `$ npx playwright test --project chromium` --> will only run the chromium project (2 tests) instead of for all 3 projects (Webkit and Firefox are excluded which reduces 6 total tests running to only 2 running)
+- `$ npx playwright test --project chromium --project firefox` --> will only run 4 tests instead of 6 (as it excludes the Webkit project's 2 tests)
+
+Another thing nice about the `--project` option is that it's an argument and can be matched to regular expressions.
+
+- For example: `$ npx playwright test --project "\*omium"`
