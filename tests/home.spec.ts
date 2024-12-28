@@ -7,4 +7,7 @@ test("Home page", async ({ page }) => {
     // Ensure the sign in link is present
     // 1. Open up the site, right-click on "Sign In" link on top right in nav bar and click "Inspect" to open Developer tools and note down the data-test's value
     await expect(page.getByTestId("nav-sign-in")).toHaveText("Sign in");
+
+    // Check the title of the page
+    await expect(page).toHaveTitle("Practice Software Testing - Toolshop - v5.0") // tests the title present in the tab of the web
 });
