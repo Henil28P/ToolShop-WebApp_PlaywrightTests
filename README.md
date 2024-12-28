@@ -65,3 +65,21 @@ There are some useful commands that can come in handy as the Playwright project 
 - You can also run a specific test from that file by specifying the line number of the test start in the file. --> `$ npx playwright test tests/example.spec.ts:10` where 10 is to indicate only run the test starting on 10th line in the test file.
 - The `grep` option allows you to not group a group of tests in the same folder but you wish to run them all together.
   Firstly, categorise those tests using the Playwright's tagging functionality.
+
+# Overview of the package.json file
+
+- It's a file that gets generated as a part of the initialization of a project - cookbook for your project.
+- It tells you what packages and versions should be installed in the "node_modules" directory (ignored by .gitignore).
+- Features:
+
+1. All the `npm` commands ran from the command line, those are commands that use the NPM CLI (eg. `npm install` - this command creates and updates the "package-lock.json" file and it installs all the different libraries in the "node_modules" folder).
+
+- For test automation frameworks in general, there are 2 areas of the package.json that matter most:
+
+1. `devDependencies` - where new packages will get installed and you can manage the versions of these packages (eg. when Playwright 48 gets released, you can update the version of "@playwright/test" key from "^1.47.2" to "^1.48.2") --> then save the file and do `$ npm install` and it will install the latest version of Playwright.
+2. `scripts` section in package.json - allows testers to create an alias for longer commands to be run from the terminal making testers and developers lives easier as the project grows.
+
+- For example: in the package.json file, add a "test" alias in the `scripts` section and assign its value as `npx playwright test` --> save the file --> type `$ npm run test` will run that command defined in the test alias.
+- Another example: in the package,json file, add a "test:chromium" alias in the `scripts` section and assign its value as `npx playwright test:chromium` --> save the file --> type `$ npm run test:chromium` will run that command defined in the test:chromium alias.
+
+- Hence having scripts built and stored in the package.json file will empower developers and testers and CI pipelines to the project have easy access in specific ways to run your automated tests.
