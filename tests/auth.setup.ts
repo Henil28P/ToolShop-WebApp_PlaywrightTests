@@ -21,4 +21,8 @@ setup("Create customer 01 auth", async ({ page, context }) => {
 
     // 3. Click the submit button
     await page.getByTestId("login-submit").click();
+
+    // Confirm that the username is logged in successfully using assertion for username appearing in the site
+    await expect(page.getByTestId("nav-menu")).toContainText("Jane Doe");
+
 });
