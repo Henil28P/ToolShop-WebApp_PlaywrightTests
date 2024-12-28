@@ -140,3 +140,33 @@ Therefore:
 2. Chain and filter locators - to get to specific elements within the DOM that you want to interact or assert against.
 3. Use legacy locators if needed
 4. Remember to use `await` when interacting with or asserting against elements.
+
+# Overview of Assertions in Playwright
+
+- Without an assertion to validate what you're expecting, you're not considered testing anything.
+- With Playwright, there are 2 general categories of assertions:
+
+1. Locator assertions - are special in that this type of assertion fails, it will automatically get retried until it either passes or it reaches the timeout.
+2. Value assertions - will be evaluated in either "pass" or "fail"
+
+- Locator assertions examples:
+
+1. `await expect(locator).toBeVisible()`
+2. `await expect(locator).toContainText()`
+3. `await expect(locator).toHaveCount()`
+4. `await expect(page).toHaveURL()`
+
+- Note that there is `await` before each of the assertions above - this is because we are interacting with and asserting against the browser or the DOM.
+  The way this works is that if we are on a page URL and we click a button which submits a form, if there are a few redirects to different URL before landing on the final URL, if we use `await expect(page).toHaveURL()`, we can put the final URL we would expect and the test won't fail immediately if it gets back one of the URLs that are still a part of the redirect process. This can be really useful to ensure that your page is on the correct page before moving on with any further automation.
+  This assertion acts as an Implicit Wait in our test.
+
+- Value assertions examples:
+
+1. `expect(value).toBe()`
+2. `expect(value).toContain()`
+3. `expect(value).toEqual()`
+4. `expect(value).toBeTruthy()`
+5. `expect(value).toHaveLength()`
+
+- Note that this does not have any `await` syntax in front of any assertions though we may need to await certain values in our test depending on what values are used.
+- A full list of assertions can be found in the Test Assertions Documentation: https://playwright.dev/docs/test-assertions
