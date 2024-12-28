@@ -7,7 +7,9 @@ test('has title', async ({ page }) => {
   await expect(page).toHaveTitle(/Playwright/);
 });
 
-test('get started link', async ({ page }) => {
+// Can run this specific test by `$ npx playwright test --grep @first` which should only run the @first tag in the test
+// To run all the tests EXCEPT for the test with @first tag: `$ npx playwright test --grep-invert @first`
+test('get started link', {tag: "@first"}, async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   // Click the get started link.
