@@ -96,3 +96,8 @@ There are some useful commands that can come in handy as the Playwright project 
 - Another example: in the package,json file, add a "test:chromium" alias in the `scripts` section and assign its value as `npx playwright test:chromium` --> save the file --> type `$ npm run test:chromium` will run that command defined in the test:chromium alias.
 
 - Hence having scripts built and stored in the package.json file will empower developers and testers and CI pipelines to the project have easy access in specific ways to run your automated tests.
+
+# Generating tests with codegen
+
+- Code Generator (codegen) - helps testers give a headstart by recording locators that theey interact with to built out their first test from scratch against the website that they are testing against (eg. ToolShop E-commerce web).
+- To run the Codegen tool, run the command: `$ npx playwright codegen` --> 2 windows will pop up (1. Playwright inspector which is where all the code will be generated to and 2. Chrome browser where we can browse the web page).
