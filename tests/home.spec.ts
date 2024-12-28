@@ -5,10 +5,12 @@ import { test, expect } from "@playwright/test" // to interact with test and exp
 // Before All, Before Each, After Each blocks - these are things that can be run within the describe block outside of a test context
 // Then, split up test into different checks
 test.describe("Home page", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto("https://practicesoftwaretesting.com/"); // 'goto' command allows testers to go and browse the site
+    });
 
     // Ensure the sign in link is present
     test("Check sign in", async ({ page }) => {
-        await page.goto("https://practicesoftwaretesting.com/"); // 'goto' command allows testers to go and browse the site
 
         // 1. Open up the site, right-click on "Sign In" link on top right in nav bar and click "Inspect" to open Developer tools and note down the data-test's value
         await expect(page.getByTestId("nav-sign-in")).toHaveText("Sign in");
@@ -19,6 +21,8 @@ test.describe("Home page", () => {
         await expect(page).toHaveTitle(
             "Practice Software Testing - Toolshop - v5.0"
         ); // tests the title present in the tab of the web
+        // Important to note when writing Playwright tests - for every test block, you have a brand new browser context (think of it like a clean web browser with no history, no cookies) - this prevents you from having a lot of flaky tests in the future
+        // To handle this scenario, we can use "before all" block or "before each" - for this specific scenario, we will need a "before each" block
     });
 
     // Check the count of items displayed - Expect 9 items are displayed initially in the home page
