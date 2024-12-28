@@ -170,3 +170,8 @@ Therefore:
 
 - Note that this does not have any `await` syntax in front of any assertions though we may need to await certain values in our test depending on what values are used.
 - A full list of assertions can be found in the Test Assertions Documentation: https://playwright.dev/docs/test-assertions
+
+# Handle cookie authentication in Playwright
+
+- Challenge: every test creates a new browser context. How can we quickly and easily get out test into a logged-in state for the tests that require login? Going through the login steps before each step will add a lot of time to our test execution time and it'd be a lot of repeated codde. --> We can instead use some tools to store an authentication state, all within Playwright.
+  When setting the Projects section in the `playwright.config.ts` file, with the setup project, we can use this to handle authentication within the system once and saving the state to be used within other tests.
