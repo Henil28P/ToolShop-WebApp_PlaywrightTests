@@ -27,5 +27,12 @@ test.describe("Checkout challenge", async () => {
         await page.getByTestId("country").fill("USA");
         await page.getByTestId("postcode").fill("98765");
         await page.getByTestId("proceed-3").click(); // Click next after filling all billing address info
+        await expect(page.getByTestId("finish")).toBeDisabled(); // A negative test that by default the Confirm button should be disabled (not be active) on the 4th step without selecting a payment option
+        await page.getByTestId("payment-method").selectOption("By now pay later"); // Select this option from the dropdown field
+        await page
+        .getByTestId("monthly_installments")
+        .selectOption("6 Monthly Installments"); // Select "6 Monthly Installments" option from the new dropdown pops up upon selecting the "By now pay later" option from previous dropdown field
+        await page.getByTestId("finish").click(); // Now click the finish button which as it enables the button upon selecting payment method
+        await expect(page.locator(".help-block")).toHaveText("Payment was successful"); // confirm the payment was successful by the success text shown on screen
     });
 });
