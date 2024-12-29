@@ -11,7 +11,7 @@ test.describe("Checkout challenge", async () => {
     });
 
     // Test for automating checkout process
-    test("Buy now pay later", async ({ page }) => {
+    test("Buy now pay later", async ({ page, headless }) => {
         await page.getByText("Claw Hammer with Shock Reduction Grip").click(); // Find the Claw Hammer
         await page.getByTestId("add-to-cart").click(); // Add the Claw Hammer to cart
         await expect(page.getByTestId("cart-quantity")).toHaveText("1"); // Make an assertion to validate the cart quantity is 1
@@ -34,5 +34,16 @@ test.describe("Checkout challenge", async () => {
         .selectOption("6 Monthly Installments"); // Select "6 Monthly Installments" option from the new dropdown pops up upon selecting the "By now pay later" option from previous dropdown field
         await page.getByTestId("finish").click(); // Now click the finish button which as it enables the button upon selecting payment method
         await expect(page.locator(".help-block")).toHaveText("Payment was successful"); // confirm the payment was successful by the success text shown on screen
+
+        // Headless lets us know if we're running the test with the browser open or closed in behind the scene (it's a ternary operator as shown by ?)
+        headless
+            // when headless is false, it will skip the following test after ? and jump straight to the console.log statement
+            ? await test.step("Visual test", async() => {
+                await expect(page).toHaveScreenshot("checkout.png", {
+                    mask: [page.getByTitle("Practice Software Testing - Toolshop")],
+                });
+            })
+        : console.log("Running in Headed mode, no screenshot comparison");
+        // Screenshot comparison is different if running in headless mode vs. running in browser, specifically if using VS code extension to run test opening the browser, your visual comparisons are going to be pixels off which may be frustrating.
     });
 });
