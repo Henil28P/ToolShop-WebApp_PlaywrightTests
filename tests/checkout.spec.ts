@@ -16,5 +16,10 @@ test.describe("Checkout challenge", async () => {
         await page.getByTestId("add-to-cart").click(); // Add the Claw Hammer to cart
         await expect(page.getByTestId("cart-quantity")).toHaveText("1"); // Make an assertion to validate the cart quantity is 1
         await page.getByTestId("nav-cart").click(); // Click on the nav-cart (cart icon on nav bar to check the cart)
+        await page.getByTestId("proceed-1").click(); // Complete the 1st part of checkout process (cart)
+        await page.getByTestId("proceed-2").click(); // Complete the 2nd part of checkout process (sign in page)
+        await expect(
+            page.locator(".step-indicator").filter({ hasText: "2" })
+        ).toHaveCSS("background-color", "rgb(51,153,51)"); // Validate the background color of the Sign In circle is green and it has "2" as its step numb
     });
 });
