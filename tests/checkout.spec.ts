@@ -65,5 +65,18 @@ test.describe("API process", async () => {
         const productBody = await getProductResponse.json(); // get the product info
         // create productId variable and get the 1st item in the productBody array and set the id to the productId variable
         const productId = productBody.data[0].id;
+
+        // Make the 2nd API call
+        const response = await request.get(apiUrl + "/products/" + productId); // pass the productId to the GET request
+
+        expect(response.status()).toBe(200); // verify status code of response to be 200
+        const body = await response.json(); // set the body variable to the response body
+
+        // Validate expected items values of response body using assertions
+        expect(body.in_stock).toBe(true);
+        expect(body.is_location_offer).toBe(false);
+        expect(body.is_rental).toBe(false);
+        expect(body.name).toBe("Thor Hammer");
+        expect(body.price).toBe(11.14);
     });
 });
