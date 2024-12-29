@@ -47,3 +47,23 @@ test.describe("Checkout challenge", async () => {
         // Screenshot comparison is different if running in headless mode vs. running in browser, specifically if using VS code extension to run test opening the browser, your visual comparisons are going to be pixels off which may be frustrating.
     });
 });
+
+// API tests for search item process
+test.describe("API process", async () => {
+
+    // Validate the Thor Hammer by getting the ID and then make a GET request against that product ID
+    test("GET /products/{id}", async ({ request }) => {
+        const apiUrl = "https://api.practicesoftwaretesting.com"; // shown in the Network tab of the Dev tools of site
+        // type "Thor Hammer" in search bar on site and observe the Headers tab in the Network tab of Dev tools after clicking "Search" button and see the API Request URL
+        // To see the Thor Hammer's API generated data, see the Preview tab in the Network tab and note the ID
+        // Then, on the site filtered results of the "Thor Hammer", click the product to generate a new API request and then see the Headers tab of the product's ID and then see the Preview tab to get this API request info
+        // Therefore, 2 API calls in the test: 1st for getting the ID and 2nd to do the assertions
+        const getProductResponse = await request.get(
+            apiUrl + "/products/search?q=thor%20hammer"
+        ); // make the 1st API request by request.get()
+        expect(getProductResponse.status()).toBe(200); // confirm status code of product response (Thor Hammer's) to be 200
+        const productBody = await getProductResponse.json(); // get the product info
+        // create productId variable and get the 1st item in the productBody array and set the id to the productId variable
+        const productId = productBody.data[0].id;
+    });
+});
