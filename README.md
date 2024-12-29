@@ -245,3 +245,22 @@ Example of a Login Flow model and what happens from a technical perspective:
 - Examples: the site may be under too much load and it just crashed OR it could be that the database responses were taking longer than 20 seconds and the test just times out and it failed the test (this could be a bug too) OR it could be a domain name that expired for a test site, etc.
 
 Playwright's rich feature set can help testers maintain their test as their automation project grows.
+
+# Playwright screenshots, videos, and reporters
+
+- As you execute automated tests, it's critical that you inspect the results of each run - by default, Playwright has many built-in test reporters.
+- Check the https://playwright.dev/docs/test-reporters to see all built-in reports (also mentioned in the playwright.config.ts)
+- After setting "video" and "screenshot" to "on", run `$ npm run test` command in the terminal
+- Then, run `$ npx playwright show-report` command to view the HTML reporter and this will open up a HTTP server to quickly view any of the tests and can search by tags, or by projects. You can also click into each of the tests and see all different test steps, screenshot of where the test completed, option to view traces, and see the video (see what was happening on the screen during the test).
+- By default, the HTML report is saved to the <b>playwright-report</b> folder - this folder can be uploaded to an S3 bucket or any kind of web server to be vieweable for any of these single test runs.
+
+- Example of a HTML reporter --> `list` reporter - useful when you're debugging tests that are running in parallel or with multiple workers and also visualise what tests are running in a CI environment.
+- The list reporter can be useful when debugging tests locally or running tests in CI - you can watch the progress in real time.
+- Some other reporters include:
+
+1. Blob reporter - allows you to easily manage parallel runs when running in a CI environment and combine the reports back together.
+2. Line reporter -
+3. JSON reporter - provides JSON output of the test run.
+4. JUnit reporter - most standardised test reporter format in the testing industry. These reports can be imported into many different tools.
+
+- You can also build your own custom reporter or use an existing 3rd party Playwright reporter that exists.
