@@ -20,6 +20,12 @@ test.describe("Checkout challenge", async () => {
         await page.getByTestId("proceed-2").click(); // Complete the 2nd part of checkout process (sign in page)
         await expect(
             page.locator(".step-indicator").filter({ hasText: "2" })
-        ).toHaveCSS("background-color", "rgb(51,153,51)"); // Validate the background color of the Sign In circle is green and it has "2" as its step numb
+        ).toHaveCSS("background-color", "rgb(51,153,51)"); // Validate the background color of the Sign In circle is green and it has "2" as its step number
+        // Fill out the billing address info
+        await page.getByTestId("address").fill("123 Testing Way");
+        await page.getByTestId("city").fill("Sacramento");
+        await page.getByTestId("country").fill("USA");
+        await page.getByTestId("postcode").fill("98765");
+        await page.getByTestId("proceed-3").click(); // Click next after filling all billing address info
     });
 });
