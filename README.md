@@ -223,3 +223,25 @@ Example of a Login Flow model and what happens from a technical perspective:
 - JavaScript on the page fires when you press "Submit" - this will send an API request to the API server, potentially with a CSFR token - this may talk to a security service to ensure that you're able to connect to a database, and validate the CSFR token, then a call is made to the database to validate the username and password that they're valid.
   At that point, an access token could be granted giving you access to the site that would get returned in an API response, in a response header or in a body. Typically, the JavaScript on the UI will get this authenticated response and load the authenticated homepage along with any additional information that would be retrieved from the API.
 - Where we can focus with Playwright are the interfaces that are exposed to test with, specifically the UI (or the DOM to the database) or through the API all the way down to the database.
+
+# Maintaining Playwright Tests
+
+- The time maintaining an automated test is close to equal of the time it takes to create a specific test.
+- Once written, the test is there to provide the testers and developers on the team feedback automatically.
+- Typically, most of the maintaining time is looking into the failed tests.
+- Failed tests typically fall into 4 different categories:
+
+1. Found a bug - the code we're testing is broken. A bug was introduced that failed our assertion or prevented automation actions from occurring.
+2. The system changed, but it was intended - the code we're testing has changed. A change to the system was made but it was intended and we need to update our automated test to acccount for it.
+3. Flakey test - this means when your tests pass sometimes and other times, it fails regardless of the state of the website being tested. Typically, the test doesn't follow best practices or web-first assertions.
+
+- Example 1: Like you're making assertion for a value that may not be loaded on the page yet
+- Example 2: The test doesn't account for certain actions within the webpage like a page is redirecting or content that dynamically loads after scrolling down a page isn't there to assert against or interact with.
+- Example 3: It could be a test is using test data which causes a failure something like an invalid email address or invalid phone number
+- Example 4: It also could be a test that may reely on some specific configuration or state of the website that another test might've changed.
+
+4. Flakey infrastructure - the infrastructure that the code is running on is having issues. This could mean the code is fine and the logic in the code is fine but the server is crashing or is causing some network errors.
+
+- Examples: the site may be under too much load and it just crashed OR it could be that the database responses were taking longer than 20 seconds and the test just times out and it failed the test (this could be a bug too) OR it could be a domain name that expired for a test site, etc.
+
+Playwright's rich feature set can help testers maintain their test as their automation project grows.
