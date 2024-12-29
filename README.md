@@ -264,3 +264,18 @@ Playwright's rich feature set can help testers maintain their test as their auto
 4. JUnit reporter - most standardised test reporter format in the testing industry. These reports can be imported into many different tools.
 
 - You can also build your own custom reporter or use an existing 3rd party Playwright reporter that exists.
+
+# Scaling Playwright tests
+
+- As your Playwright test automation suite grows, you'll find the need for greater organisation and maintainability is needed within your test.
+- You'll also need some strategies in order to abstract away duplicate code and simplify your code as much as possible.
+- The abilty to abstract away complex logic from our test files into other files can be done in Playwright using functions that can be used across any of the tests using a page object class or utilising Playwright fixtures.
+
+Running our test automation scripts across multiple environments - can be done using a .env file and update your test with a process.env URL (can be implemented within a page object):
+
+- Before commenting out the importing of dotenv in the `playwright.config.ts` file, install the dotenv module from terminal by the `$ npm install dotenv --save-dev` command to install the .env plugin from it and it'll update the package.json file as it will add a new devDependency of "dotenv" and also installs dotenv information into the "node_modules" folder. Finally, create a new file and name it ".env" in the project root and add `URL=https://practicesoftwaretesting.com` and replace the URL string in the loginPage page object with `process.env.URL` and then run the login spec test with page object to make sure everything passes.
+
+Test knowledge:
+
+1. What command is included in Playwright to view the HTML report after a test run? `$ npx playwright show-report` --> By default, if all tests pass, the HTML report isn't shown. You can use this command to view it. If there is a failure during a test run, this command runs automatically, and the HTML report will pop up on its own.
+2. What tools are available when viewing traces through the trace viewer? browser console history, network traffic history, snapshot of the dom, locator selector, playwright logging, playwright step history, a visual timeline, test source code, and light/dark mode.
