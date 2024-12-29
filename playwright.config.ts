@@ -32,7 +32,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [['html'],['list']], // to add a "list" reporter, convert the string to an array of arrays which is how Playwright supports multiple options in the config file for the reporter
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     // This section focuses on details of the browser, browser configuration settings, and how the browser is going to interact when running test
